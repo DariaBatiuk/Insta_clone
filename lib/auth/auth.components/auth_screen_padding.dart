@@ -7,7 +7,7 @@ class AuthScreenPadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
-    child: child
+        child: child
     );
   }
 }

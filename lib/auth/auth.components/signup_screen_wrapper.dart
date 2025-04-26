@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../../../components/text_input_field.dart';
-import '../../components/auth_screen_padding.dart';
-import '../../constants.dart';
+import '../auth.constants.dart';
+import 'auth_screen_padding.dart';
 
-class ScreenStep extends StatelessWidget {
+
+class SignupScreenWrapper extends StatelessWidget {
   final String headerText;
   final String description;
   final String inputLabel;
+  final TextInputField textInputField;
   final bool ? emailConfirmationStep;
+  final bool loading;
   final Function() onNextBtnPressed;
   final Function() ? onResendConfirmationCodeButtonPressed;
 
-  const ScreenStep({
+  const SignupScreenWrapper({
     required this.headerText,
     required this.description,
     required this.inputLabel,
+    required this.textInputField,
     this.emailConfirmationStep = false,
+    this.loading = false,
     required this.onNextBtnPressed,
+
     this.onResendConfirmationCodeButtonPressed,
     super.key,
   });
@@ -37,8 +43,10 @@ class ScreenStep extends StatelessWidget {
               Text(description,
                 style: TextStyle(fontSize: 12.0),),
               SizedBox(height: authFormGapValue,),
-              TextInputField(label: inputLabel),
+              textInputField,
               SizedBox(height: authFormGapValue,),
+              loading ?
+              Center(child: CircularProgressIndicator(strokeWidth: 4.0,)) :
               SizedBox(
                 width: double.infinity,
                 child:
@@ -48,13 +56,13 @@ class ScreenStep extends StatelessWidget {
               ),
               SizedBox(height: authFormGapValue,),
               if (emailConfirmationStep == true)
-              SizedBox(
-                width: double.infinity,
-                child:
-                OutlinedButton(
-                    onPressed: () => onResendConfirmationCodeButtonPressed,
-                    child: Text("Didn't get the code?")),
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  child:
+                  OutlinedButton(
+                      onPressed: () => onResendConfirmationCodeButtonPressed,
+                      child: Text("Didn't get the code?")),
+                ),
               SizedBox(height: authFormGapValue,),
 
             ],

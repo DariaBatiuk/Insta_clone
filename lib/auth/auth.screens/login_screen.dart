@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course/app_routes.dart';
 import 'package:flutter_course/components/text_input_field.dart';
-import 'package:flutter_course/screens/auth_screens/components/auth_screen_padding.dart';
-import 'package:flutter_course/screens/auth_screens/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../auth.components/auth_screen_padding.dart';
+import '../auth.constants.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final TextEditingController _loginEmailController = TextEditingController();
+  final TextEditingController _loginPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: Center(
-                  child: SvgPicture.asset("assets/app_logos/instagramClone_logo.svg")),
+                    child: SvgPicture.asset("assets/app_logos/instagramClone_logo.svg")),
               ),
               Flexible(
                   child: AuthScreenPadding(
@@ -24,18 +29,23 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            const TextInputField(
-                                    label: "Username or email"
-                                    ),
+                            TextInputField(
+                                label: "Username or email",
+                                textEditingController: _loginEmailController,
+                                textInputType: TextInputType.emailAddress,
+                            ),
                             const SizedBox(
                               height: authFormGapValue,),
-                            const TextInputField(
-                                    label: ("Password"),
-                                    ),
+                            TextInputField(
+                              label: ("Password"),
+                              textEditingController: _loginPasswordController,
+                              textInputType: TextInputType.text,
+                              obscureText: true,
+                            ),
                             const SizedBox(
                               height: authFormGapValue,),
                             SizedBox(
-                              width: double.infinity,
+                                width: double.infinity,
                                 child: FilledButton(
                                     onPressed: () => print("Login clicked"),
                                     child: Text("Login"))
@@ -46,27 +56,27 @@ class LoginScreen extends StatelessWidget {
                         Column(
                           children: [
                             OutlinedButton(
-                              onPressed: () => Navigator.pushNamed(context, '/signup'),
-                              child: Text("Create new account")
+                                onPressed: () => Navigator.pushNamed(context, AppRoutes.signup),
+                                child: Text("Create new account")
                             ),
                             TextButton(onPressed: () => print('Clicked!'),
                                 child: Text('canshecode',
-                                  style: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                      ? const TextStyle(color: Colors.white54)
-                                      : const TextStyle(color: Colors.black54))
+                                    style: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                        ? const TextStyle(color: Colors.white54)
+                                        : const TextStyle(color: Colors.black54))
                             )
                           ],
                         )
                       ],
                     ),
                   )
-                    
+
               )
             ],
           ),
 
-      )
+        )
     );
   }
 }
