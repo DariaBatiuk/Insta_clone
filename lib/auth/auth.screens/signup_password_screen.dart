@@ -41,8 +41,14 @@ class _SignupPasswordScreenState extends State<SignupPasswordScreen>{
               _loading = true;
             });
 
-            final success = await Provider.of<AuthProvider>(context, listen: false).signupWithEmailAndPassword(password);
-            if (success){
+            final authServiceResponse = await Provider.of<AuthProvider>(context, listen: false).signupWithEmailAndPassword(password);
+            String? signupErrorMessage = authServiceResponse.errorMessage;
+
+            if (signupErrorMessage != null){
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.red.shade300,
+                  content: Text(signupErrorMessage)));
+            } else {
               Navigator.pushNamed(context, AppRoutes.home);
             }
             setState(() {

@@ -26,14 +26,14 @@ class _SignupEmailScreenState extends State<SignupEmailScreen> {
           description: 'Enter the email where you can be contacted. No one will see this on your profile.',
           textInputField: TextInputField(
             textEditingController: _signupEmailController,
-            label: "Email", textInputType: TextInputType.text
+            label: "Email", textInputType: TextInputType.emailAddress
           ),
           inputLabel: 'Email',
           onNextBtnPressed: () {
             final email = _signupEmailController.text.trim();
             if(email.isNotEmpty) {
               context.read<AuthProvider>().setEmail(email);
-              Navigator.pushNamed(context, AppRoutes.signupPassword);
+              Navigator.pushNamed(context, AppRoutes.signupOtpEmail);
             }
             print("Go to password screen.");
           },
