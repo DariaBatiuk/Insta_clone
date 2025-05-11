@@ -6,7 +6,7 @@ import 'package:flutter_course/auth/auth.screens/signup_email_screen.dart';
 import 'package:flutter_course/auth/auth.screens/signup_password_screen.dart';
 import 'package:flutter_course/home/home.screen.dart';
 
-import 'auth/auth.screens/signup_email_confirmation_screen.dart';
+import 'auth/auth.screens/signup_email_otp_screen.dart';
 
 class AppRoutes {
   static const String signup = '/signup';

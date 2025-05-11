@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/app_routes.dart';
-import 'package:flutter_course/auth/auth.provider.dart';
+import 'package:flutter_course/user-profile/user-profile.provider.dart';
 import 'package:flutter_course/components/text_input_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ import '../auth.components/auth_screen_padding.dart';
 import '../auth.constants.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         _loading = true;
                                       });
 
-                                      final authServiceResponse = await Provider.of<AuthProvider>(context, listen: false).loginWithEmailAndPassword(email, password);
+                                      final authServiceResponse = await Provider.of<UserProfileProvider>(context, listen: false).loginWithEmailAndPassword(email, password);
                                       print(authServiceResponse);
                                       String? loginErrorMessage = authServiceResponse.errorMessage;
 
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text("Create new account")
                             ),
                             TextButton(onPressed: () => print('Clicked!'),
-                                child: Text('canshecode',
+                                child: Text('instagramclon',
                                     style: Theme.of(context).brightness ==
                                         Brightness.dark
                                         ? const TextStyle(color: Colors.white54)

@@ -1,23 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_course/auth/auth.service.dart';
-import 'package:flutter_course/user-account/user-account.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthProvider extends ChangeNotifier{
+import 'user-profile.dart';
+
+class UserProfileProvider extends ChangeNotifier{
   final AuthService _authService = AuthService();
 
-  UserAccountModel? _userAccount;
+  UserProfile? _userProfile;
 
   late SharedPreferences _sharedPreferences;
   String hasSignUpBeforeStatusKey = 'hasSignedUpBefore';
   String _email = "";
   bool _hasSignedUpBefore = false;
+  String? get email => _email;
 
-  UserAccountModel? get userAccount => _userAccount;
+  UserProfile? get userProfile => _userProfile;
   bool get hasSigneUpBefore => _hasSignedUpBefore;
 
-  AuthProvider(){
+  UserProfileProvider(){
    _initializeSharedPreferences();
   }
 
@@ -37,33 +39,33 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  Stream<UserAccountModel?> get userAccountStream => _authService.firebaseUser.map((firebaseUser) => firebaseUser != null ? UserAccountModel.fromFirebaseUser(firebaseUser) : null);
+  Stream<UserProfile?> get userProfileStream => _authService.firebaseUser.map((firebaseUser) => firebaseUser != null ? UserProfile.fromFirebaseUser(firebaseUser) : null);
 
   void setEmail(String email){
     _email = email;
     notifyListeners();
   }
 
-  Future<AuthServiceResponse<UserAccountModel>> signupWithEmailAndPassword(String password) async {
+  Future<AuthServiceResponse<UserProfile>> signupWithEmailAndPassword(String password) async {
     final authServiceResponse = await _authService.signupWithEmailAndPassword(_email, password);
 
     User? firebaseUser = authServiceResponse.data;
 
     if(firebaseUser != null) {
       setHasSignedUpBefore();
-      _userAccount = UserAccountModel.fromFirebaseUser(firebaseUser);
-      return AuthServiceResponse(data: _userAccount);
+      _userProfile = UserProfile.fromFirebaseUser(firebaseUser);
+      return AuthServiceResponse(data: _userProfile);
     }
     return AuthServiceResponse(errorMessage: authServiceResponse.errorMessage);
   }
-  Future<AuthServiceResponse<UserAccountModel>> loginWithEmailAndPassword(String email, String password) async {
+  Future<AuthServiceResponse<UserProfile>> loginWithEmailAndPassword(String email, String password) async {
     final authServiceResponse = await _authService.loginWithEmailAndPassword(email, password);
 
     User? firebaseUser = authServiceResponse.data;
 
     if(firebaseUser != null) {
-      _userAccount = UserAccountModel.fromFirebaseUser(firebaseUser);
-      return AuthServiceResponse(data: _userAccount);
+      _userProfile = UserProfile.fromFirebaseUser(firebaseUser);
+      return AuthServiceResponse(data: _userProfile);
     }
     return AuthServiceResponse(errorMessage: authServiceResponse?.errorMessage);
   }

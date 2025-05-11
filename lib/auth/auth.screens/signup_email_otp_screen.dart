@@ -1,18 +1,37 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_course/app_routes.dart';
 import 'package:flutter_course/auth/auth.components/signup_screen_wrapper.dart';
-import 'package:flutter_course/auth/auth.provider.dart';
+import 'package:flutter_course/user-profile/user-profile.provider.dart';
 import 'package:flutter_course/components/text_input_field.dart';
 import 'package:provider/provider.dart';
 
-class SignupEmailOtpScreen extends StatelessWidget {
-  SignupEmailOtpScreen ({super.key});
+class SignupEmailOtpScreen extends StatefulWidget {
+  const SignupEmailOtpScreen ({super.key});
 
+  @override
+  State<SignupEmailOtpScreen> createState() => _SignupEmailOtpScreenState();
+}
+
+class _SignupEmailOtpScreenState extends State<SignupEmailOtpScreen> {
   final TextEditingController _signupOtpController = TextEditingController();
+
+  String? _errorMessage;
+  late String _generatedOtp;
+
+  String _generateOtp() {
+    Random random = Random();
+    String otp = "";
+    for(int i=0; i<6; i++) {
+     String randomNumberString = random.nextInt(10).toString();
+     otp = otp + randomNumberString;
+    }
+    return otp;
+  }
 
   Future<void> _sendEmailWithOtp(String email, String otp) async {
     try {
@@ -27,10 +46,26 @@ class SignupEmailOtpScreen extends StatelessWidget {
         })
       );
       if(emailResponse.statusCode != 200) {
-        throw Exception("Failed to send an email");
+        setState(() {
+          _errorMessage = "Failed to send OTP";
+        });
       }
     } catch(error) {
-      throw Exception("Failed to send an email");
+      setState(() {
+        _errorMessage = "A server error has occurred.";
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _generatedOtp = _generateOtp();
+    final email = context.read<UserProfileProvider>().email;
+    if(email == null) {
+      Navigator.pop(context);
+    } else {
+      _sendEmailWithOtp(email, _generatedOtp);
     }
   }
 
@@ -39,22 +74,32 @@ class SignupEmailOtpScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Provider(
-          create: (context) => AuthProvider(),
+          create: (context) => UserProfileProvider(),
           child: SignupScreenWrapper(
             headerText: "Enter the OTP sent to your email",
             description: 'An OTP has been sent to your email. Enter it here to verify your email.',
+            errorMessage: _errorMessage,
             textInputField: TextInputField(
                 textEditingController: _signupOtpController,
                 label: "OTP", textInputType: TextInputType.number
             ),
             inputLabel: 'Email',
             onNextBtnPressed: () {
-              final email = _signupOtpController.text.trim();
-              if(email.isNotEmpty) {
-                context.read<AuthProvider>().setEmail(email);
-                Navigator.pushNamed(context, AppRoutes.signupPassword);
+              final enteredOtp = _signupOtpController.text.trim();
+
+              if(enteredOtp.isEmpty){
+                setState(() {
+                  _errorMessage = 'OTP is required';
+                });
               }
-              print("Go to password screen.");
+              if(enteredOtp == _generatedOtp) {
+                Navigator.pushNamed(context, AppRoutes.signupPassword);
+              } else{
+                setState(() {
+                  _errorMessage = 'Invalid OTP';
+                });
+                return;
+              }
             },
           ),
         ),

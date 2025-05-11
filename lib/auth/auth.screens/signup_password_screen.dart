@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/app_routes.dart';
 import 'package:flutter_course/auth/auth.components/signup_screen_wrapper.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_course/auth/auth.provider.dart';
+import 'package:flutter_course/user-profile/user-profile.provider.dart';
 
 import '../../components/text_input_field.dart';
 
@@ -41,7 +41,7 @@ class _SignupPasswordScreenState extends State<SignupPasswordScreen>{
               _loading = true;
             });
 
-            final authServiceResponse = await Provider.of<AuthProvider>(context, listen: false).signupWithEmailAndPassword(password);
+            final authServiceResponse = await Provider.of<UserProfileProvider>(context, listen: false).signupWithEmailAndPassword(password);
             String? signupErrorMessage = authServiceResponse.errorMessage;
 
             if (signupErrorMessage != null){

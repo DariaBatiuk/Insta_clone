@@ -11,6 +11,7 @@ class SignupScreenWrapper extends StatelessWidget {
   final TextInputField textInputField;
   final bool ? emailConfirmationStep;
   final bool loading;
+  final String? errorMessage;
   final Function() onNextBtnPressed;
   final Function() ? onResendConfirmationCodeButtonPressed;
 
@@ -21,6 +22,7 @@ class SignupScreenWrapper extends StatelessWidget {
     required this.textInputField,
     this.emailConfirmationStep = false,
     this.loading = false,
+    this.errorMessage,
     required this.onNextBtnPressed,
 
     this.onResendConfirmationCodeButtonPressed,
@@ -44,6 +46,9 @@ class SignupScreenWrapper extends StatelessWidget {
                 style: TextStyle(fontSize: 12.0),),
               SizedBox(height: authFormGapValue,),
               textInputField,
+              if(errorMessage != null)
+                Text(errorMessage!, style: TextStyle(color: Colors.red)),
+
               SizedBox(height: authFormGapValue,),
               loading ?
               Center(child: CircularProgressIndicator(strokeWidth: 4.0,)) :
