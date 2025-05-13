@@ -4,6 +4,8 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final String _genericErrorMessage = "An error occurred. Please try again later.";
 
+  User? get currentFirebaseUser => _firebaseAuth.currentUser;
+
   Stream<User?> get firebaseUser => _firebaseAuth.authStateChanges();
 
   Future<AuthServiceResponse<User>>signupWithEmailAndPassword(String email, String password) async {
@@ -54,6 +56,31 @@ class AuthService {
         return "The email or password is invalid";
       default:
         return "An error occurred. Please try again later";
+    }
+  }
+
+  Future<User?> updateAuthCurrentUser(String? displayName, String? photoUrl)  async{
+    print('dnp - $displayName, $photoUrl');
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if(displayName == null && photoUrl == null){
+      return firebaseUser;
+    }
+    try{
+      if(displayName != null) {
+        print('runDP - $displayName, $photoUrl');
+        await firebaseUser?.updateDisplayName(displayName);
+      }
+      if(photoUrl != null){
+        print('runP - $displayName, $photoUrl');
+        await firebaseUser?.updatePhotoURL(photoUrl);
+      }
+      print('got here!');
+      await firebaseUser?.reload();
+      print(_firebaseAuth.currentUser);
+      return firebaseUser;
+    } catch(error){
+      print('error - $error');
+        return firebaseUser;
     }
   }
 

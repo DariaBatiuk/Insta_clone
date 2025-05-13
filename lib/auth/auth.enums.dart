@@ -1,1 +1,0 @@
-enum AuthUserDataToUpdate { photoUrl, displayName }

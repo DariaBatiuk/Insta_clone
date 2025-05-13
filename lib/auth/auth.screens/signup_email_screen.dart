@@ -33,7 +33,7 @@ class _SignupEmailScreenState extends State<SignupEmailScreen> {
             final email = _signupEmailController.text.trim();
             if(email.isNotEmpty) {
               context.read<UserProfileProvider>().setEmail(email);
-              Navigator.pushNamed(context, AppRoutes.signupOtpEmail);
+              Navigator.pushNamed(context, AppRoutes.signupPassword);
             }
             print("Go to password screen.");
           },
