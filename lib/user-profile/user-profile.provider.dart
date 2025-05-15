@@ -59,10 +59,9 @@ class UserProfileProvider extends ChangeNotifier{
       String randomAvatar = 'https://ui-avatars.com/api/?background=random&name=$avatarName';
       User? updatedFirebaseUser = await _authService.updateAuthCurrentUser(defaultUserName, randomAvatar);
 
-
       setHasSignedUpBefore();
       _userProfile = UserProfile.fromFirebaseUser(updatedFirebaseUser ?? firebaseUser);
-
+      await _userProfileService.createUserProfile(_userProfile!);
       return AuthServiceResponse(data: _userProfile);
     }
     return AuthServiceResponse(errorMessage: authServiceResponse.errorMessage);

@@ -60,26 +60,16 @@ class AuthService {
   }
 
   Future<User?> updateAuthCurrentUser(String? displayName, String? photoUrl)  async{
-    print('dnp - $displayName, $photoUrl');
     User? firebaseUser = _firebaseAuth.currentUser;
     if(displayName == null && photoUrl == null){
       return firebaseUser;
     }
     try{
-      if(displayName != null) {
-        print('runDP - $displayName, $photoUrl');
-        await firebaseUser?.updateDisplayName(displayName);
-      }
-      if(photoUrl != null){
-        print('runP - $displayName, $photoUrl');
-        await firebaseUser?.updatePhotoURL(photoUrl);
-      }
-      print('got here!');
+      await firebaseUser?.updateProfile(displayName: displayName, photoURL: photoUrl);
       await firebaseUser?.reload();
-      print(_firebaseAuth.currentUser);
-      return firebaseUser;
+      User? updatedFirebaseUser = _firebaseAuth.currentUser;
+      return updatedFirebaseUser;
     } catch(error){
-      print('error - $error');
         return firebaseUser;
     }
   }
