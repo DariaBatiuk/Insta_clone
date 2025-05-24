@@ -61,7 +61,7 @@ class UserProfileProvider extends ChangeNotifier{
 
       setHasSignedUpBefore();
       _userProfile = UserProfile.fromFirebaseUser(updatedFirebaseUser ?? firebaseUser);
-      await _userProfileService.createUserProfile(_userProfile!);
+      await _userProfileService.createUserProfile(_userProfile!.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()));
       return AuthServiceResponse(data: _userProfile);
     }
     return AuthServiceResponse(errorMessage: authServiceResponse.errorMessage);

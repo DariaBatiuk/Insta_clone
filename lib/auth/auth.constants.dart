@@ -1,1 +1,5 @@
-const authFormGapValue = 12.0;
+
+
+class AuthConstants {
+  static const formGapValue = 12.0;
+}

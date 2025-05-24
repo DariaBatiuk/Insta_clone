@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../components/text_input_field.dart';
+import '../../../../app.components/text_input_field.dart';
 import '../auth.constants.dart';
 import 'auth_screen_padding.dart';
 
@@ -41,15 +41,15 @@ class SignupScreenWrapper extends StatelessWidget {
               SizedBox(height: 24.0,),
               Text(headerText,
                 style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: authFormGapValue,),
+              SizedBox(height: AuthConstants.formGapValue,),
               Text(description,
                 style: TextStyle(fontSize: 12.0),),
-              SizedBox(height: authFormGapValue,),
+              SizedBox(height: AuthConstants.formGapValue,),
               textInputField,
               if(errorMessage != null)
                 Text(errorMessage!, style: TextStyle(color: Colors.red)),
 
-              SizedBox(height: authFormGapValue,),
+              SizedBox(height: AuthConstants.formGapValue,),
               loading ?
               Center(child: CircularProgressIndicator(strokeWidth: 4.0,)) :
               SizedBox(
@@ -59,7 +59,7 @@ class SignupScreenWrapper extends StatelessWidget {
                     onPressed: () => onNextBtnPressed(),
                     child: Text('Next')),
               ),
-              SizedBox(height: authFormGapValue,),
+              SizedBox(height: AuthConstants.formGapValue,),
               if (emailConfirmationStep == true)
                 SizedBox(
                   width: double.infinity,
@@ -68,7 +68,7 @@ class SignupScreenWrapper extends StatelessWidget {
                       onPressed: () => onResendConfirmationCodeButtonPressed,
                       child: Text("Didn't get the code?")),
                 ),
-              SizedBox(height: authFormGapValue,),
+              SizedBox(height: AuthConstants.formGapValue,),
 
             ],
           ),

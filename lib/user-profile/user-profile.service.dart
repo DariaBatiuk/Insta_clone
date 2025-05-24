@@ -27,8 +27,6 @@ class UserProfileService {
     return 'user _$shortHash';
   }
   Future <bool> createUserProfile(UserProfile userProfileData) async {
-    print('userProfileData: $userProfileData');
-    print(userProfileData.toMap());
     try {
       await _firebaseFirestore.collection('user-profiles').doc(userProfileData.uid).set(userProfileData.toMap());
       return true;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/app_routes.dart';
 import 'package:flutter_course/auth/auth.components/signup_screen_wrapper.dart';
 import 'package:flutter_course/user-profile/user-profile.provider.dart';
-import 'package:flutter_course/components/text_input_field.dart';
+import 'package:flutter_course/app.components/text_input_field.dart';
 import 'package:provider/provider.dart';
 
 class SignupEmailScreen extends StatefulWidget {

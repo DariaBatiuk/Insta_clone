@@ -4,7 +4,7 @@ import 'package:flutter_course/auth/auth.components/signup_screen_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_course/user-profile/user-profile.provider.dart';
 
-import '../../components/text_input_field.dart';
+import '../../app.components/text_input_field.dart';
 
 class SignupPasswordScreen extends StatefulWidget {
   SignupPasswordScreen({super.key});

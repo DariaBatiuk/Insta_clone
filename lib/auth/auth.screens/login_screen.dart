@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/app_routes.dart';
 import 'package:flutter_course/user-profile/user-profile.provider.dart';
-import 'package:flutter_course/components/text_input_field.dart';
+import 'package:flutter_course/app.components/text_input_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../auth.components/auth_screen_padding.dart';
@@ -44,16 +44,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textEditingController: _loginEmailController,
                                 textInputType: TextInputType.emailAddress,
                             ),
-                            const SizedBox(
-                              height: authFormGapValue,),
+                            SizedBox(
+                              height: AuthConstants.formGapValue,),
                             TextInputField(
                               label: ("Password"),
                               textEditingController: _loginPasswordController,
                               textInputType: TextInputType.text,
                               obscureText: true,
                             ),
-                            const SizedBox(
-                              height: authFormGapValue,),
+                            SizedBox(
+                              height: AuthConstants.formGapValue,),
                             SizedBox(
                                 width: double.infinity,
                                 child: FilledButton(

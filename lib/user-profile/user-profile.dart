@@ -41,6 +41,37 @@ class UserProfile {
         avatar: firebaseUser.photoURL!,
     );
   }
+
+  //method to update specific fields
+  copyWith({
+    String? email,
+    String? userName,
+    String? avatar,
+    String? bio,
+    String? firstName,
+    String? lastName,
+    Gender? gender,
+    int? phoneNumber,
+    String? website,
+    DateTime? createdAt,
+    DateTime? updatedAt
+  }) {
+    return UserProfile(
+    uid: this.uid,
+    email: email ?? this.email,
+    userName: userName ?? this.userName,
+    avatar: avatar ?? this.avatar,
+    bio: bio ?? this.bio,
+    firstName: firstName ?? this.firstName,
+    lastName: lastName ?? this.lastName,
+    gender: gender ?? this.gender,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    website: website ?? this.website,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
