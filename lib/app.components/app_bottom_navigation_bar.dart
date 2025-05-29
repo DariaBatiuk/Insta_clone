@@ -1,13 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course/app_routes.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
-  const AppBottomNavigationBar({super.key});
+  final int currentIndex;
+
+  const AppBottomNavigationBar({super.key, required this.currentIndex});
 
   @override
   State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
 }
 
 class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
+
+  late int _activeIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _activeIndex = widget.currentIndex;
+  }
+
+  void _onNavItemTapped(int index) {
+    if(index == _activeIndex) {;
+      return;
+    }
+    setState(() {
+      _activeIndex = index;
+    });
+
+    switch(index) {
+      case 0:
+        Navigator.pushNamed(context, AppRoutes.home);
+        break;
+      case 1:
+        Navigator.pushNamed(context, AppRoutes.search);
+        break;
+      case 2:
+        Navigator.pushNamed(context, AppRoutes.posts);
+        break;
+      case 3:
+        Navigator.pushNamed(context, AppRoutes.videos);
+        break;
+      case 4:
+        Navigator.pushNamed(context, AppRoutes.userProfile);
+        break;
+      default:
+        Navigator.pushNamed(context, AppRoutes.home);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -18,6 +59,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
           BottomNavigationBarItem(icon: Icon(Icons.video_collection_outlined), activeIcon: Icon(Icons.video_collection), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.person), activeIcon: Icon(Icons.person_2), label: "")
         ],
+      currentIndex: _activeIndex,
       elevation: 0.0,
       backgroundColor: Colors.white,
       selectedItemColor: Colors.black,
@@ -25,7 +67,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
-      onTap: (w) => print(w),
+      onTap: _onNavItemTapped,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_course/home/post.dart';
+import 'package:flutter_course/posts/post.dart';
 
 class PostService{
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

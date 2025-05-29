@@ -70,14 +70,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       });
 
                                       final authServiceResponse = await Provider.of<UserProfileProvider>(context, listen: false).loginWithEmailAndPassword(email, password);
-                                      print(authServiceResponse);
                                       String? loginErrorMessage = authServiceResponse.errorMessage;
 
                                       if(loginErrorMessage != null){
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                             backgroundColor: Colors.red.shade300,
                                             content: Text(loginErrorMessage)));
-                                        print(loginErrorMessage);
                                       } else {
                                         Navigator.pushNamed(context, AppRoutes.home);
                                       }

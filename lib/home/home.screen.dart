@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/app.components/app_bottom_navigation_bar.dart';
 import 'package:flutter_course/app_constants.dart';
+import 'package:flutter_course/home/home.components/home-media-slider.dart';
 import 'package:flutter_course/home/media.dart';
-import 'package:flutter_course/home/post.dart';
-import 'package:flutter_course/home/post.service.dart';
+import 'package:flutter_course/posts/post.dart';
+import 'package:flutter_course/posts/post.service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -67,24 +68,27 @@ class HomeScreen extends StatelessWidget {
                             subtitleTextStyle: TextStyle(fontSize: 10.0),
                             trailing: Icon(Icons.more_vert),
                           ),
-                          SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                           height: 300.0,
-                           child: ListView.builder(
-                           scrollDirection: Axis.horizontal,
-                           itemCount: post.media.length,
-                           itemBuilder: (context, index) {
-                           MediaType mediaType = post.media[index].type;
-                           String mediaValue = post.media[index].value;
-
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                    child: mediaType == MediaType.image ? Image.network(mediaValue, fit: BoxFit.cover,) : Text("Video"),
-                    );
-
-                    },
-                          )
-                          )
+                    
+                    HomeMediaSlider(mediaList: post.media)
+                    
+                    //       SizedBox(
+                    //       width: MediaQuery.of(context).size.width,
+                    //        height: 300.0,
+                    //        child: ListView.builder(
+                    //        scrollDirection: Axis.horizontal,
+                    //        itemCount: post.media.length,
+                    //        itemBuilder: (context, index) {
+                    //        MediaType mediaType = post.media[index].type;
+                    //        String mediaValue = post.media[index].value;
+                    //
+                    //   return SizedBox(
+                    //     width: MediaQuery.of(context).size.width,
+                    // child: mediaType == MediaType.image ? Image.network(mediaValue, fit: BoxFit.cover,) : Text("Video"),
+                    // );
+                    //
+                    // },
+                    //       )
+                    //       )
                         ],
                       ),
                     );
@@ -93,7 +97,7 @@ class HomeScreen extends StatelessWidget {
               }
           ),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(),
+      bottomNavigationBar: AppBottomNavigationBar(currentIndex: 0,),
     );
   }
 }

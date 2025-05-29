@@ -30,10 +30,6 @@ class Post{
 
       List<Media> media = (firestorePostData["media"] as List).map((media) => Media.fromMap(media as Map<String, dynamic>)).toList();
 
-      print(firestorePostDoc.data());
-      print("____________");
-      print(firestoreUserProfileDoc.data());
-
       return Post(
           userName: firestoreProfileData["userName"],
           avatar: firestoreProfileData["avatar"],
